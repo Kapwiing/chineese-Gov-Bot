@@ -22,9 +22,13 @@ import json
 nest_asyncio.apply()
 
 load_dotenv()
+
+#Really important
+#Make sure you create the token.txt with your token
 TOKEN = open("token.txt","r").readline()
 
-#----Prefix stuff
+
+#----Prefix stuff (borowed)
 def get_prefix(my_client: commands.Bot, message):
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
@@ -33,10 +37,14 @@ def get_prefix(my_client: commands.Bot, message):
 
 client = commands.Bot(command_prefix=get_prefix)
 #-----------
+
 client.remove_command('help')
 
 @client.event
 async def on_guild_join(guild):
+    """This function handles the prefixes on server join
+    The bot needs to be online when joining a server for this code to work, 
+    in the other case, the prefix will break and the bot will not work properly"""
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
     
@@ -52,7 +60,8 @@ async def on_guild_join(guild):
     
     with open("channel.json", "w") as f:
         json.dump(channel, f)
-        
+
+#Start the Cog
 client.add_cog(ChineeseGOV(client))
 
 print("Bot Running !")
