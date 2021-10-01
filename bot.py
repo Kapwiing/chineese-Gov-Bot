@@ -10,7 +10,6 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-from discord_buttons_plugin import *
 from chineeseCog import ChineeseGOV
 import asyncio
 import nest_asyncio
